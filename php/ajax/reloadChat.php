@@ -4,7 +4,7 @@
     foreach($dbmessage->listMessages(1) as $message) {
 ?>
     <div class="message-block">
-        <span>
+        <span style="background-color: <?php echo $message['textcolor']; ?>;">
             <label><?php echo $message['username']; ?>:</label>
             <?php echo $message['message']; ?>
         </span>

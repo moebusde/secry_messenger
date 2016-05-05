@@ -21,8 +21,9 @@ $(document).ready(function() {
         $.ajax({
             method: "POST",
             url: "php/ajax/setMessage.php",
-            data: "message="+message.val(), 
-            success: function() {
+            data: "message="+message.val()+"&chat=1&user=1", 
+            success: function(data) {
+                console.log(data);
                 message.val("");
             }
         });

@@ -1,9 +1,12 @@
 <?php
-    
+    session_start();
     include '../classes/Messages.php';
 
     $dbmessage = new Messages();
     $message = filter_input(0, "message");
+    $chat = filter_input(0, "chat");
     
-    $dbmessage->setMessage($message, 1, 2);
+    if($dbmessage->setMessage($message, $chat, $_SESSION['username'])) {
+        echo "gesendet";
+    }
     

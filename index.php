@@ -1,3 +1,7 @@
+<?php 
+    session_start();
+    var_dump($_SESSION);
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,6 +15,7 @@
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
         <script src="js/main.js" type="text/javascript"></script>
     </head>
+<?php if($_SESSION['logged_in']) { ?>
     <body>
         <div class="container">
             <div class="row">
@@ -18,7 +23,10 @@
                     <h1>Wilkommen bei Secry</h1>
                 </div>
             </div>
-            <div class="chatbox"></div>
+            <div class="row chatframe">
+                <div class="chatbox col-md-12"></div>
+            </div>
+            
             <div class="row">
                 <div class="col-md-12 col-sm-12" id="content">
                     <label for="inpMessage">Deine Nachricht</label>
@@ -35,3 +43,8 @@
         </div>
     </body>
 </html>
+<?php 
+    } else {
+        include './php/views/login.php';
+    }
+?>
