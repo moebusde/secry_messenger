@@ -5,12 +5,18 @@ $(document).ready(function() {
     var chatbox = $(".chatbox");
     var intervall;
     
+    function gotoBottom(id){
+        var element = document.getElementById(id);
+        element.scrollTop = element.scrollHeight - element.clientHeight;
+    }   
+    
     function reloadChat() {
         $.ajax({
             url: "php/ajax/reloadChat.php",
             method: "POST",
             success: function(data) {
                 chatbox.html(data);
+                gotoBottom("chatframe");
                 intervall = setTimeout(reloadChat, 1000);
             }
         });

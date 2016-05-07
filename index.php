@@ -1,5 +1,5 @@
 <?php 
-    session_start(); //
+    session_start();
     var_dump($_SESSION);
 ?>
 <!DOCTYPE html>
@@ -17,13 +17,14 @@
     </head>
 <?php if($_SESSION['logged_in']) { ?>
     <body>
+        <a class="btn btn-default" href="php/views/logout.php">Logout</a>
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <h1>Wilkommen bei Secry</h1>
                 </div>
             </div>
-            <div class="row chatframe">
+            <div class="row chatframe" id="chatframe">
                 <div class="chatbox col-md-12"></div>
             </div>
             
