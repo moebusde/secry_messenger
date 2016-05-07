@@ -3,9 +3,9 @@
     $dbmessage = new Messages();
     foreach($dbmessage->listMessages(1) as $message) {
 ?>
-    <div class="message-block">
+    <div class="message-block form-group">
         <span style="background-color: <?php echo $message['textcolor']; ?>;">
-            <label><?php echo $message['username']; ?>:</label>
+            <?php echo $message['username']." - ".date("H:i", strtotime($message['sent'])).": "; ?>
             <?php echo $message['message']; ?>
         </span>
             
