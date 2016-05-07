@@ -11,7 +11,7 @@
  *
  * @author dennis
  */
-include 'php/gitignore.php';
+include '/var/www/html/secry.moebus.local/php/gitignore.php';
 
 class Users {
     public function login($user, $password) {
@@ -25,5 +25,9 @@ class Users {
                 return false;
             }
         }
+    }
+    
+    public function logout() {
+        session_destroy();
     }
 }
