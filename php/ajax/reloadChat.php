@@ -1,15 +1,7 @@
 <?php
     include '../classes/Messages.php';
+    $timesent = filter_input(0, "currentsent");
+    $chat = filter_input(0, "chat");
     $dbmessage = new Messages();
-    foreach($dbmessage->listMessages(1) as $message) {
-?>
-    <div class="message-block form-group">
-        <span style="background-color: <?php echo $message['textcolor']; ?>;">
-            <?php echo $message['username']." - ".date("H:i", strtotime($message['sent'])).": "; ?>
-            <?php echo $message['message']; ?>
-        </span>
-            
-    </div>
-<?php
-    }
-?>
+    
+    echo json_encode($dbmessage->listMessages($chat));
