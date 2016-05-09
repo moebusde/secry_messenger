@@ -1,6 +1,10 @@
 <?php 
     session_start();
     var_dump($_SESSION);
+    include_once './php/classes/Messages.php';
+    $dbmessage = new Messages();
+    $last_message = $dbmessage->getMessage(1, 1);
+    
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,6 +21,8 @@
     </head>
 <?php if($_SESSION['logged_in']) { ?>
     <body>
+        <span id="last_message_id" data-id="<?php echo $last_message['id_messages']; ?>"></span>
+        <audio id="audNewMessage" src="media/new_message.mp3"></audio>
         <a class="btn btn-default" href="php/views/logout.php">Logout</a>
         <div class="container">
             <div class="row">

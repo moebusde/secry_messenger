@@ -1,21 +1,30 @@
 <?php
 
-include '../gitignore.php';
+include '/var/www/html/secry.moebus.local/php/gitignore.php';
 
 class Messages {
     
-    public function listMessages($chat) {
+    public function listMessages($chat, $last_shown_id) {
         $mysqli = new mysqli(Credentials::getServer(), Credentials::getUser(), Credentials::getPassword(), Credentials::getDB());
         $query = "SELECT * FROM alle_nachrichten WHERE f_id_chats = $chat ORDER BY id_messages";
         $counter = 0;
         $messages = array();
-        
         if($result = $mysqli->query($query)) {
             while ($row = $result->fetch_assoc()) {
                 $messages[$counter] = $row;
                 $counter++;
             }
             return $messages;
+        }
+    }
+    
+    public function isUpdateRequired($chat, $last_shown_id) {
+        $last_real_id = $this->getMessage($chat,1);
+        
+        if($last_real_id['id_messages'] > $last_shown_id) {
+            return true;
+        } else {
+            return false;
         }
     }
     

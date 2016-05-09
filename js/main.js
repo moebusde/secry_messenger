@@ -2,7 +2,9 @@ $(document).ready(function() {
     
     
     var btnSendMessage = $("#btnSendMessage");
+    var last_message_id = $("#last_message_id");
     var chatbox = $(".chatbox");
+    var audNewMessage = $("#audNewMessage");
     var intervall;
     
     function gotoBottom(id){
@@ -11,20 +13,23 @@ $(document).ready(function() {
     }   
     
     function reloadChat() {
-        var last_message_id;
+        
         $.ajax({
             url: "php/ajax/reloadChat.php",
             method: "POST",
-            data: "lastmessageid="+last_message_id+"&chat=1",
+            data: "lastmessageid="+last_message_id.attr("data-id")+"&chat=1",
             success: function(data) {
-                var json = $.parseJSON(data);
-                chatbox.html("");
-                for(var i = 0; i < json.length; i++) {
-                    chatbox.append("<div data-message-id="+json[i].id_messages+" class='message-block form-group'><span style='background-color:"+json[i].textcolor+"'>"+json[i].username+" - "+json[i].sent+": "+json[i].message+"</span></div>");
-                    last_message_id = json[i].id_messages;
+                if(data !== "no update required") {
+                    var json = $.parseJSON(data);
+                    chatbox.html("");
+                    for(var i = 0; i < json.length; i++) {
+                        chatbox.append("<div data-message-id="+json[i].id_messages+" class='message-block form-group'><span style='background-color:"+json[i].textcolor+"'>"+json[i].username+" - "+json[i].sent+": "+json[i].message+"</span></div>");
+                        last_message_id.attr("data-id", json[i].id_messages);
+                    }
+                    console.log(last_message_id);
+                    gotoBottom("chatframe");
+                    audNewMessage[0].play();
                 }
-                console.log(last_message_id);
-                gotoBottom("chatframe");
                 intervall = setTimeout(reloadChat, 1000);
             }
         });
